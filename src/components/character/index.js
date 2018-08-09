@@ -1,15 +1,15 @@
 import React from 'react'
+import { Col } from "reactstrap";
 
 const Character = (props) => {
   return (
-    <div className='col-6 col-md-3 mt-2'>
+    <Col md='3' xs='6'> 
       <div className='card'>
         <img className='card-img-top' src={props.thumbnail}  />
-        <div className='card-body'>
-          <h5 className='card-title'>{ props.name } </h5>
-        </div>
+        <h6 className='card-footer'>{ props.name } </h6>
+        
       </div>
-    </div>
+    </Col>
   );
 }
 

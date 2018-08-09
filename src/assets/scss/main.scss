@@ -1,3 +1,7 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 
-@import './characters'
+@import './characters';
+
+body{
+    margin-top: 56px;
+}
