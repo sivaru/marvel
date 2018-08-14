@@ -7,7 +7,9 @@ import {
   Nav,
   NavItem,
   Container } from 'reactstrap';
-  import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+import './navigation.scss'
 
 export default class Navigation extends React.Component {
   constructor(props) {
@@ -26,8 +28,10 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <Container fluid>
-        <Navbar color='light' light expand='md' fixed='top'>
-          <NavbarBrand >marvelitious</NavbarBrand>
+        <Navbar color='dark' dark expand='md' fixed='top'>
+          <NavbarBrand className='navigation__brand'>
+            <div className='navigation__logo' />
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>

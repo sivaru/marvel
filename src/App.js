@@ -1,29 +1,33 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route , Link} from 'react-router-dom'
+import { BrowserRouter, Route , Switch} from 'react-router-dom'
 
 import './assets/scss/main.scss'
 
 /* pages */
 import Home from './pages/home/'
 import Comics from './pages/comics/'
-import Navigation  from "./components/navbar";
+import CharacterDetails from "./pages/characterdetails";
+
+/* containers */
+import Navigation  from "./components/navigation";
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          
-          <div className='row'>
-            <Navigation />
-            
-
-            <div className='container'>
+          <header>
+            <div className='row'>
+              <Navigation />
+            </div> 
+          </header>
+          <main>
+            <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/comics' component={Comics} />
-            </div>
-          </div>
-          
+              <Route path='/character/:id' component={CharacterDetails} />
+            </Switch>
+          </main>
         </div>
       </BrowserRouter>
     )

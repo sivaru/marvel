@@ -1,0 +1,12 @@
+.navigation{
+  &__logo{
+    background-image: url(./logo.png);
+    width: 204px;
+    height: 55px;
+    padding: 0;
+  }
+
+  &__brand{
+    padding: 0;
+  }
+}

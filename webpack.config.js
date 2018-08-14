@@ -38,6 +38,11 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: {
+      index: './dist/index.html'
+    }
+  },
   plugins: [
     new HtmlWebPackPlugin({
       template: "./src/index.html",
