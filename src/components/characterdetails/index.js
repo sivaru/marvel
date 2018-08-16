@@ -1,34 +1,79 @@
 import React from 'react'
-import {Row, Col, Container} from 'reactstrap'
+import { Row, Col, Container } from 'reactstrap'
 
+import ComicListitem from '../comiclistitem'
+import { characterType } from "../../proptypes/";
 import './characterdetails.scss'
+import Loading from '../loading';
 
-const CharacterDetails = ({character}) => {
-   return (
-     <Container className='character-details'>
-       <Row>
+const api = 'https://gateway.marvel.com:443/v1/public/characters/';
+const apiKey = '?apikey=1535cfba2d65e7a268cf7cc79d377bd1';
 
-         <Col md='4'>
-           <div className='d-flex justify-content-center'>
-             <img className='character-details__image' src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
-          </div>
-         </Col>
+class CharacterDetails extends React.Component {
+  state = {
+    comics: [],
+    isLoading: true
+  }
 
-         <Col md='8'>
-           <div className='d-flex justify-content-center'> 
-            <h1>{character.name}</h1>
-          </div>
-       
-           <div className='d-flex justify-content-center'>
-            <p>{character.description ? character.description : 'There\'s no description available.'}</p>
-          </div>
-         </Col>
-       </Row>
+  render() {
+    return (
+      <Container className='character-details'>
+        <Row>
+          <Col md='4'>
+            <div className='d-flex justify-content-center'>
+              <img className='character-details__image' src={`${this.props.character.thumbnail.path}.${this.props.character.thumbnail.extension}`} alt={this.props.character.name} />
+            </div>
+          </Col>
 
-        
-     </Container>
+          <Col md='8'>
+            <Row>
+              <div className='d-flex justify-content-center'>
+                <h1>{this.props.character.name}</h1>
+              </div>
+            </Row>
+
+            <Row>
+              <div className='d-flex justify-content-center'>
+                <p>{this.props.character.description ? this.props.character.description : 'There\'s no description available.'}</p>
+              </div>
+            </Row>
+
+            <Row>
+              <h5>Appears in :</h5>
+              {this.state.isLoading
+                ? <div className='d-flex justify-content-center'> <Loading className='align-self-center'/></div>
+                : <Container className='character-details__comic-list'>
+                  {this.state.comics.map(e => this.generateComicListitem(e))}
+                </Container>
+              }
+
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     )
+  }
+
+  componentDidMount() {
+    this.fetchComicsList();
+  }
+
+  fetchComicsList = () =>
+    fetch(`${api}${this.props.character.id}/comics${apiKey}`)
+      .then(response => response.json()
+        .then(data =>
+          this.setState({
+            comics: data.data.results,
+            isLoading: false
+          })
+        ))
+
+
+  generateComicListitem = (e) => { return (<ComicListitem comic={e} />) }
+
 }
+
+
 
 CharacterDetails.propTypes = {
   character: characterType

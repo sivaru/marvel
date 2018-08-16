@@ -2,86 +2,101 @@ import React from 'react'
 
 import Character from '../../components/character'
 import Loading from '../../components/loading'
+import { connect } from 'react-redux'
+import "babel-polyfill";
+import { Input, Button } from 'reactstrap'
 
+import get20Characters from '../../redux/actionCreators/characters'
+import searchCharacters from '../../redux/actionCreators/charactersSearch'
 import './characterlist.scss'
 
 const api = 'https://gateway.marvel.com:443/v1/public/characters?apikey=1535cfba2d65e7a268cf7cc79d377bd1';
 
-class CharacterList extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            characters : [],
-            offset : 0,
-            isLoading: true,
-            total : 0,
-            searchParam : ''
-        }
-    }
+class CharacterList extends React.Component {
 
-    render(){
-        return (
-          this.state.isLoading ?
-          <div className='container'>
-            <Loading />
-          </div>
-          :
-          <div className='container character-list__container'>
-            <div className='d-flex justify-content-between'>
-              <div>
-                <input type='text'
-                  value={this.state.searchParam}
-                  onChange={(event) => { this.setState({searchParam: event.target.value})}}
-                  placeholder='Search...' />
+  state = {
+    offset: 0,
+    searchParam: '',
+    searchNavigation: '',
+  }
 
-                <input type='button' onClick={this.searchCharacters} value='Search' />
-              </div>
-              <div>
-                <input type='button' onClick={this.fetchCharacters.bind(this, -20)} disabled={!this.state.offset > 0} value='Prev.' />
-                <input type='button' onClick={this.fetchCharacters.bind(this, 20)} disabled={(this.state.total-this.state.offset < 20)} value='Next' />
-              </div>
+
+  render() {
+    console.log(`${this.props.total} - ${this.state.offset} = ${this.props.total - this.state.offset}`)
+    return (
+      this.props.isLoading ?
+        <div className='container'>
+          <Loading />
+        </div>
+        :
+        <div className='container character-list__container'>
+          <div className='d-flex justify-content-between character-list__form'>
+            <div>
+              <Input type='text'
+                className='inline'
+                value={this.state.searchParam}
+                onChange={(event) => { this.setState({ searchParam: event.target.value }) }}
+                placeholder='Search...' />
+
+              <Button type='button' onClick={this.searchCharacters}>Search</Button>
             </div>
-            <div className='row'>
-              {
-                this.state.characters.map( e => this.generateCharacter(e))
-              }
+            <div>
+              <Button type='button' onClick={this.navigateCharactersList.bind(this, -20)} disabled={!this.state.offset > 0} >Prev</Button>
+              <Button type='button' onClick={this.navigateCharactersList.bind(this, 20)} disabled={this.props.total - this.state.offset <= 20}>Next</Button>
             </div>
           </div>
-        );
-    }
+          <div className='row'>
+          
+            {
+             this.props.total === 0 ? <h1> No characters were found. </h1>: this.props.characters.map(e => this.generateCharacter(e))
+            }
+          </div>
+        </div>
+    );
+  }
 
-    generateCharacter = (character) =>  <Character character={character} key={character.id} />;
+  generateCharacter = (character) => <Character character={character} key={character.id} />;
 
-    componentDidMount(){//Here we have access to DOM
-        //do fetch and api calls in here using this.SetState() (this will cause the component to re-render)
-        this.fetchCharacters(0);
-    }
+  componentDidMount() {//Here we have access to DOM
+    //do fetch and api calls in here using this.SetState() (this will cause the component to re-render)
+    this.props.get20Characters();
+  }
 
-    fetchCharacters = (offset) => {
-        offset += this.state.offset;
-        this.setState({isLoading : true,
-                    offset: offset});
-        fetch(api+'&offset='+offset)
-            .then(response => response.json())
-            .then(data => this.setState({characters : data.data.results,
-                                         isLoading : false,
-                                         total : data.data.total}));
+  navigateCharactersList = async (offset) => {
+    const newOffset = this.state.offset + offset;
+    await this.setState({ offset: newOffset });
+
+    if (!this.props.isSearch) {
+      this.props.get20Characters(newOffset);
+    } else {
+      this.props.searchCharacters(this.state.searchNavigation, newOffset);
     }
-    
-    searchCharacters = () => {
-        this.setState({isLoading : true});
-        if (this.state.searchParam != '')
-            fetch(`${api}&nameStartsWith=${this.state.searchParam}`) 
-                .then(response => response.json())
-                .then(data => this.setState({characters : data.data.results,
-                                            isLoading : false,
-                                            total : data.data.total,
-                                            offset: 0}));
-        else
-        this.fetchCharacters(0);
-    }
+  }
+
+  searchCharacters = () => {
+    const searchParam = this.state.searchParam;
+    this.setState({
+      offset: 0,
+      searchNavigation: searchParam
+    });
+    if (searchParam != '')
+      this.props.searchCharacters(searchParam, 0)
+  }
+
 
 }
 
+const mapStateToProps = state => ({
+  characters: state.characters.characters,
+  isLoading: state.characters.isLoading,
+  isSearch: state.characters.isSearch,
+  total: state.characters.total,
+  error: state.characters.error
+})
 
-export default CharacterList
+const mapDispatchToProps = {
+  get20Characters,
+  searchCharacters
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterList)

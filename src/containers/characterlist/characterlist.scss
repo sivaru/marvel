@@ -1,5 +1,14 @@
 .character-list{
   &__container{
     background-color: #f8f9fab3;
+    padding: 16px;
+    border-radius: 2px;
+  }
+  &__form{
+    .inline{
+      display: inline;
+      width: 50%;
+      margin-right: 2%;
+    }
   }
 }

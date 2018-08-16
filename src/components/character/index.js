@@ -3,7 +3,7 @@ import { Col } from "reactstrap";
 import { Link } from 'react-router-dom'
 import './character.scss'
 
-import { CharacterType, characterType } from '../../proptypes/index';
+import { characterType } from '../../proptypes/index';
 
 const Character = ({ character }) => {
   return (

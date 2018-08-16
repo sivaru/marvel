@@ -6,4 +6,15 @@
     object-fit: cover;
     background-position-x: 0;
   }
+
+  &__comic-list{
+    overflow-y: scroll;
+    height: 54vh;
+  }
+  
+  @media screen and (max-width: 600px) {
+    &__image{
+      height: 100vw;
+    }
+  }
 }

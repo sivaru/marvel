@@ -12,8 +12,11 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",
@@ -40,8 +43,11 @@
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
     "reactstrap": "^6.3.1",
     "redux": "^4.0.0",
-    "redux-logger": "^3.0.6"
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

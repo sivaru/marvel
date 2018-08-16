@@ -1,0 +1,15 @@
+.comic-list-item{
+
+  &__thumbnail{
+    padding-right: 1%;
+    height: 10vw;
+    object-fit: cover;
+  }
+
+
+  @media screen and (max-width: 600px){
+    &__thumbnail{
+    height: 27vh;
+    }
+  }
+}
