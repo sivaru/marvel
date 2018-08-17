@@ -8,6 +8,7 @@ import './assets/scss/main.scss'
 import Home from './pages/home/'
 import Comics from './pages/comics/'
 import CharacterDetails from "./pages/characterdetails";
+import ComicDetails from "./pages/comicdetails";
 
 /* containers */
 import Navigation from "./components/navigation";
@@ -27,8 +28,9 @@ class App extends Component {
             <main>
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/comics' component={Comics} />
-                <Route path='/character/:id' component={CharacterDetails} />
+                <Route exact path='/comics' component={Comics} />
+                <Route path='/comics/:id' component={ComicDetails} />
+                <Route path='/characters/:id' component={CharacterDetails} />
               </Switch>
             </main>
           </div>

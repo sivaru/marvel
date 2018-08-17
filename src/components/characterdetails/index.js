@@ -38,16 +38,23 @@ class CharacterDetails extends React.Component {
               </div>
             </Row>
 
-            <Row>
-              <h5>Appears in :</h5>
-              {this.state.isLoading
-                ? <div className='d-flex justify-content-center'> <Loading className='align-self-center'/></div>
-                : <Container className='character-details__comic-list'>
-                  {this.state.comics.map(e => this.generateComicListitem(e))}
-                </Container>
-              }
 
-            </Row>
+
+            {this.state.isLoading
+              ? <div className='d-flex justify-content-center'> <Loading className='align-self-center' /></div>
+              : this.state.comics.length > 0 
+              ? <Row>
+              <h5>Appears in :</h5>
+              <Container className='character-details__comic-list'>
+                {this.state.comics.map(e => this.generateComicListitem(e))}
+              </Container>
+            </Row> :
+              <Row>
+                <h5>There's no info on comics for this character.</h5>
+                </Row>
+            }
+
+
           </Col>
         </Row>
       </Container>

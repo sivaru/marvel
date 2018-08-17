@@ -1,0 +1,14 @@
+.comic-details{
+  background-color: #f8f9fab3;
+  &__image{
+    width: 100%;
+    height: 40vw;
+    object-fit: cover;
+    background-position-x: 0;
+  }
+  @media screen and (max-width: 600px) {
+    &__image{
+      height: 100vw;
+    }
+  }
+}

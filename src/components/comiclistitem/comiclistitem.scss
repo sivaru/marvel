@@ -1,9 +1,12 @@
 .comic-list-item{
-
+  margin-bottom: 2%;
+  padding-bottom: 1px;
+  border-bottom: 1px solid darkgray;
   &__thumbnail{
     padding-right: 1%;
     height: 10vw;
     object-fit: cover;
+    
   }
 
 

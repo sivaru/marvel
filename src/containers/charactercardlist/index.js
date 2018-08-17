@@ -1,18 +1,18 @@
 import React from 'react'
 
-import Character from '../../components/character'
+import CharacterCard from '../../components/charactercard'
 import Loading from '../../components/loading'
 import { connect } from 'react-redux'
 import "babel-polyfill";
-import { Input, Button } from 'reactstrap'
+import { Input, Button, Container } from 'reactstrap'
 
 import get20Characters from '../../redux/actionCreators/characters'
 import searchCharacters from '../../redux/actionCreators/charactersSearch'
-import './characterlist.scss'
+import './charactercardlist.scss'
 
 const api = 'https://gateway.marvel.com:443/v1/public/characters?apikey=1535cfba2d65e7a268cf7cc79d377bd1';
 
-class CharacterList extends React.Component {
+class CharacterCardList extends React.Component {
 
   state = {
     offset: 0,
@@ -22,15 +22,14 @@ class CharacterList extends React.Component {
 
 
   render() {
-    console.log(`${this.props.total} - ${this.state.offset} = ${this.props.total - this.state.offset}`)
     return (
       this.props.isLoading ?
         <div className='container'>
           <Loading />
         </div>
         :
-        <div className='container character-list__container'>
-          <div className='d-flex justify-content-between character-list__form'>
+        <Container className=' character-card-list__container'>
+          <div className='d-flex justify-content-between character-card-list__form'>
             <div>
               <Input type='text'
                 className='inline'
@@ -51,11 +50,11 @@ class CharacterList extends React.Component {
              this.props.total === 0 ? <h1> No characters were found. </h1>: this.props.characters.map(e => this.generateCharacter(e))
             }
           </div>
-        </div>
+        </Container>
     );
   }
 
-  generateCharacter = (character) => <Character character={character} key={character.id} />;
+  generateCharacter = (character) => <CharacterCard character={character} key={character.id} />;
 
   componentDidMount() {//Here we have access to DOM
     //do fetch and api calls in here using this.SetState() (this will cause the component to re-render)
@@ -99,4 +98,4 @@ const mapDispatchToProps = {
   searchCharacters
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterList)
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterCardList)

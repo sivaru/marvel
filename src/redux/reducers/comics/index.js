@@ -1,31 +1,33 @@
 import * as a from '../../actions/types'
 
 const INITIAL_STATE = {
-  characters: [],
+  comics: [],
   total: 0,
   isLoading: false,
   isSearch: false,
   error: ''
 }
 
-function charactersReducer(state = INITIAL_STATE, action) {
+function comicsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case a.CHARACTERS_GET20_REQUEST:
+    case a.COMICS_GET20_REQUEST:
       return {
         ...state,
         isLoading: true,
         isSearch: false
+
+
       }
 
-    case a.CHARACTERS_GET20_SUCCESS:
+    case a.COMICS_GET20_SUCCESS:
       return {
         ...state,
-        characters: action.payload.results,
+        comics: action.payload.results,
         isLoading: false,
         total: action.payload.total
       }
 
-    case a.CHARACTERS_GET20_FAILURE:
+    case a.COMICS_GET20_FAILURE:
       return {
         ...state,
         error: action.error,
@@ -34,22 +36,22 @@ function charactersReducer(state = INITIAL_STATE, action) {
 
     //searching functionality
 
-    case a.CHARACTERS_SEARCH_REQUEST:
+    case a.COMICS_SEARCH_REQUEST:
       return {
         ...state,
         isSearch: true,
         isLoading: true
       }
 
-    case a.CHARACTERS_SEARCH_SUCCESS:
+    case a.COMICS_SEARCH_SUCCESS:
       return {
         ...state,
-        characters: action.payload.results,
+        comics: action.payload.results,
         total: action.payload.total,
         isLoading: false
       }
 
-    case a.CHARACTERS_SEARCH_FAILURE:
+    case a.COMICS_SEARCH_FAILURE:
       return {
         ...state,
         error: action.error,
@@ -61,4 +63,4 @@ function charactersReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default charactersReducer
+export default comicsReducer

@@ -1,13 +1,13 @@
 import React from 'react'
 
 import './characters.scss'
-import CharacterList from '../../containers/characterlist'
+import CharacterCardList from '../../containers/charactercardlist'
 
 export default class Home extends React.Component {
   render () {
     return (
       <div className='characters'>
-        <CharacterList />
+        <CharacterCardList />
       </div>
     )
   }

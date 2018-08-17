@@ -26,6 +26,5 @@ const store = createStore(
   )
 )
 
-console.log('state:', store.getState())
 
 export default store

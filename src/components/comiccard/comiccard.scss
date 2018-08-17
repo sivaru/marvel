@@ -1,0 +1,40 @@
+.comic-card{
+    width: 70%;
+    height: auto;
+    margin-top: 8px;
+    background-color: #0d1a26a6;
+
+    &__link{
+        text-decoration: none;
+    }
+
+    &__link:hover{
+        text-decoration: none;
+        color: #ed1c24;        
+    }
+
+    &__thumbnail{
+        width: 100%;
+        height: 10vw;
+        object-fit: cover;
+        background-position-x: 0;
+    }
+
+    &__name{
+        margin: 0;
+        text-decoration: none;
+        color: #fff;        
+    }
+
+    &__name:hover{
+        margin: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        &__thumbnail {
+            height: 30vw;
+        }
+    }
+}
+
+

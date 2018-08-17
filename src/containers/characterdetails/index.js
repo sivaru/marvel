@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CharacterDetails from '../../components/characterdetails';
-import ComicList from '../../containers/comiclist';
 
 import Loading from '../../components/loading';
 
