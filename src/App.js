@@ -9,6 +9,7 @@ import Home from './pages/home/'
 import Comics from './pages/comics/'
 import CharacterDetails from "./pages/characterdetails";
 import ComicDetails from "./pages/comicdetails";
+import Footer from "./components/footer";
 
 /* containers */
 import Navigation from "./components/navigation";
@@ -33,8 +34,12 @@ class App extends Component {
                 <Route path='/characters/:id' component={CharacterDetails} />
               </Switch>
             </main>
+            <footer>
+              <Footer />
+            </footer>
           </div>
         </BrowserRouter>
+
       </Provider>
     )
   }

@@ -39,14 +39,13 @@ module.exports = {
     ]
   },
   devServer: {
-    historyApiFallback: {
-      index: './dist/index.html'
-    }
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
+      publicPath: '/'
     })
   ]
 };

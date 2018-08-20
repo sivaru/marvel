@@ -1,7 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
+
+import './comicdetailstab.scss'
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -22,11 +24,11 @@ export default class Example extends React.Component {
   }
   extractId = (url) => {
     const index = url.lastIndexOf('/') + 1;
-    return url.slice(index,url.length)
+    return url.slice(index, url.length)
   }
   render() {
     return (
-      <div>
+      <Container fluid>
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -41,19 +43,21 @@ export default class Example extends React.Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              Creators
+              Creators ({this.props.comic.creators.items.length})
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={this.state.activeTab}>
+        <TabContent activeTab={this.state.activeTab} className='comic-details-tab'>
           <TabPane tabId="1">
             <Row>
               <Col sm="12" md='12'>
                 <Row>
                   {this.props.comic.characters.items.map(e =>
 
-                    <Col md='4'>
-                      <Link to={`/characters/${this.extractId(e.resourceURI)}`}> <h6>{e.name}</h6></Link>
+                    <Col sm='6' md='4'>
+                      <Link to={`/characters/${this.extractId(e.resourceURI)}`}>
+                        <h6 className='comic-details-tab__item'>{e.name}</h6>
+                      </Link>
                     </Col>
 
                   )}
@@ -63,24 +67,17 @@ export default class Example extends React.Component {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Special Title Treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
-              </Col>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Special Title Treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
-              </Col>
+              {this.props.comic.creators.items.map(e =>
+                <React.Fragment>
+                  <Col sm='12' md='12'>
+                    <h6 className='comic-details-tab__item'>{e.name} - {e.role}</h6>
+                  </Col>
+                </React.Fragment>
+              )}
             </Row>
           </TabPane>
         </TabContent>
-      </div>
+      </Container>
     );
   }
 }

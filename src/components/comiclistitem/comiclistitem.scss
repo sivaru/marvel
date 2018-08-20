@@ -8,11 +8,21 @@
     object-fit: cover;
     
   }
-
+  &__link{
+    color: black;
+  }
+  &__link:hover{
+    color: #fff;
+    text-decoration: none;
+  }
 
   @media screen and (max-width: 600px){
     &__thumbnail{
     height: 27vh;
     }
   }
+}
+
+.comic-list-item:hover{
+  background-color: #21252947;
 }

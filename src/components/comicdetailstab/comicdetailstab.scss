@@ -1,0 +1,19 @@
+.comic-details-tab{
+  background-color: #8d8b8b63;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 30vh;
+  &__item{
+    background-color: darkgray;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1px;
+    display: inline-block;
+    color: black;
+  }
+}
+
+.nav-tabs .nav-link.active{
+  color: #f8f9fa;
+  background-color: rgba(0, 0, 0, 0.5);
+}
